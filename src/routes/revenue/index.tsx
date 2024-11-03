@@ -7,7 +7,7 @@ export default component$(() => {
     clients: 0,
   });
 
-  const monthlyRevenue = useComputed$(() => state.subscription * state.clients);
+  const monthlyRevenue = useComputed$(() => state.subscription * state.clients || 0);
 
   return (
     <>
@@ -21,6 +21,7 @@ export default component$(() => {
         id="subscription-cost-input"
         min={0}
         step={1}
+        pattern="^[0-9]+$"
         type="number"
         onInput$={(_, el) => (state.subscription = Number(el.value))}
       />
@@ -30,15 +31,16 @@ export default component$(() => {
         type="number"
         min={0}
         step={1}
+        pattern="^[0-9]+$"
         onInput$={(_, el) => (state.clients = Number(el.value))}
       />
       <div>
         <h2>Monthly Revenue</h2>
-        <p> {monthlyRevenue} $</p>
+        <p> {monthlyRevenue.value} $</p>
       </div>
       <div>
-        <h2>Monthly Revenue</h2>
-        <p>{monthlyRevenue} $</p>
+        <h2>Yearly Revenue</h2>
+        <p>{Number(monthlyRevenue.value) * 12} $</p>
       </div>
     </>
   );
