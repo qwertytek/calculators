@@ -8,9 +8,14 @@ export default component$(() => {
 
   return (
     <>
-      <h1>Hi 👋</h1>
+      <h1 class="mt-12">Hi 👋</h1>
       <p> Bunch of calculator apps to visualize numbers </p>
-      <Button onClick$={() => nav("/revenue")}>Business Revenue</Button>
+      <Button
+        class="mt-5"
+        onClick$={() => nav("/business")}
+      >
+        Business Revenue
+      </Button>
     </>
   );
 });

@@ -2,6 +2,7 @@ import { component$, useStore, useComputed$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { Input } from "~/components/ui";
 import { Label } from "~/components/ui";
+import { Breadcrumb } from '~/components/ui';
 
 export default component$(() => {
   const state = useStore({
@@ -15,7 +16,18 @@ export default component$(() => {
 
   return (
     <>
-      <h1>Business Calculator 👋</h1>
+      <Breadcrumb.Root>
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator />
+          <Breadcrumb.Item>
+            <Breadcrumb.Page> Business Calculator </Breadcrumb.Page>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
+      <h1 class="mt-8">Business Calculator 👋</h1>
       <p class="mb-6 mt-1">
         A calculator to visualize how much you should charge on you subscription
         based product
