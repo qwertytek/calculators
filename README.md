@@ -1,4 +1,15 @@
-# Qwik City App ⚡️
+# Calculators
+
+An application about calculting things. Mathematics is sometimes hard to visualize, understand how numbers can unfold is the purpose of this project. I'll try to think of a way of adding some graphs later on when this projects is more solidified.
+
+## Projects
+
+### Subscription Revenue calculator
+
+---
+This app was build with:
+
+## Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.dev/)
 - [Discord](https://qwik.dev/chat)
@@ -8,13 +19,13 @@
 
 ---
 
-## Project Structure
+### Project Structure
 
 This project is using Qwik with [QwikCity](https://qwik.dev/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
 
 Inside your project, you'll see the following directory structure:
 
-```
+```language
 ├── public/
 │   └── ...
 └── src/
