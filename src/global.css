@@ -73,7 +73,7 @@
 
   /* TYPOGRAPHY */
   h1 {
-    @apply text-6xl font-bold mb-5;
+    @apply mb-5 text-6xl font-bold;
   }
   h2 {
     @apply text-xl font-extrabold;
@@ -84,7 +84,7 @@
   }
 
   label {
-    @apply font-bold text-2xl;
+    @apply text-2xl font-bold;
   }
 
   /* ELEMENTS */

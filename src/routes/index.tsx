@@ -10,10 +10,7 @@ export default component$(() => {
     <>
       <h1 class="mt-12">Hi 👋</h1>
       <p> Bunch of calculator apps to visualize numbers </p>
-      <Button
-        class="mt-5"
-        onClick$={() => nav("/business")}
-      >
+      <Button class="mt-5" onClick$={() => nav("/business")}>
         Business
       </Button>
     </>
