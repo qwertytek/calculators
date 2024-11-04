@@ -14,7 +14,7 @@ export default component$(() => {
         class="mt-5"
         onClick$={() => nav("/business")}
       >
-        Business Revenue
+        Business
       </Button>
     </>
   );
