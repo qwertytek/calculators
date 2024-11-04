@@ -7,6 +7,7 @@ An application about calculting things. Mathematics is sometimes hard to visuali
 ### Subscription Revenue calculator
 
 ---
+
 This app was build with:
 
 ## Qwik City App ⚡️

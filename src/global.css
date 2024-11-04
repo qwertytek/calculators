@@ -70,4 +70,25 @@
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
     --transform-press: translate(4px, 4px);
   }
+
+  /* TYPOGRAPHY */
+  h1 {
+    @apply text-6xl font-bold mb-5;
+  }
+  h2 {
+    @apply text-xl font-extrabold;
+  }
+
+  p {
+    @apply font-mono;
+  }
+
+  label {
+    @apply font-bold text-2xl;
+  }
+
+  /* ELEMENTS */
+  input {
+    @apply mb-2 mt-2;
+  }
 }
