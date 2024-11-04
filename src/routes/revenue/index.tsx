@@ -1,5 +1,7 @@
 import { component$, useStore, useComputed$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import { Input } from '~/components/ui';
+
 
 export default component$(() => {
   const state = useStore({
@@ -17,7 +19,7 @@ export default component$(() => {
         based product
       </p>
       <label for="subscription-cost-input"> Monthly Subscription costs</label>
-      <input
+      <Input
         id="subscription-cost-input"
         min={0}
         step={1}
@@ -26,7 +28,7 @@ export default component$(() => {
         onInput$={(_, el) => (state.subscription = Number(el.value))}
       />
       <label for="clients-input"> Nº Clients </label>
-      <input
+      <Input
         id="clients-input"
         type="number"
         min={0}
