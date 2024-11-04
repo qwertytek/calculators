@@ -70,6 +70,10 @@
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
     --transform-press: translate(4px, 4px);
   }
+  
+  body {
+    @apply p-10 pl-20
+  }
 
   /* TYPOGRAPHY */
   h1 {
