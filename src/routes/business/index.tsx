@@ -22,14 +22,7 @@ export default component$(() => {
   );
 
   const projectedRevenue = useComputed$(() => {
-    const yearlyGrowth = growth.rate / 100;
-    let revenue = growth.startRevenue;
-
-    for (let i = 0; i < growth.years; i++) {
-      revenue += revenue * yearlyGrowth;
-    }
-
-    return revenue.toFixed(2); // Return revenue as a fixed decimal string
+    return (growth.startRevenue * Math.pow((1 + growth.rate / 100), (growth.years*12))).toFixed(2)
   });
 
   return (
@@ -106,7 +99,7 @@ export default component$(() => {
                   formId="g-calc-growth-rate"
                   value={String(growth.rate)}
                   onInput$={$((_: any, el: HTMLInputElement) => (growth.rate = Number(el.value)))}
-                  labelText="Growth Rate"
+                  labelText="Growth Rate (monthly)"
                 />
               </div>
               <div class="ml-10">
@@ -117,7 +110,7 @@ export default component$(() => {
                   labelText="Years"
                 />
                 <div class="pt-9">
-                  <h2>Project Revenue</h2>
+                  <h2>Projected Yearly Revenue</h2>
                   <p> {projectedRevenue} </p>
                 </div>
               </div>
