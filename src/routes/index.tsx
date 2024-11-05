@@ -4,6 +4,8 @@ import { useNavigate } from "@builder.io/qwik-city";
 import { Button } from "~/components/ui";
 
 export default component$(() => {
+  // FIX prefetching to avoid load times
+  // https://qwik.dev/docs/advanced/modules-prefetching/
   const nav = useNavigate();
 
   return (
