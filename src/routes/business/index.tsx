@@ -1,73 +1,71 @@
-import { component$, useStore, useComputed$ } from "@builder.io/qwik";
+import { component$, $, useStore, useComputed$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { LuX } from "@qwikest/icons/lucide";
-import { Input, Breadcrumb, Modal, Label, buttonVariants } from "~/components/ui";
+import { Modal, buttonVariants } from "~/components/ui";
+import { FormControl } from "~/components/molecules"
+import Breadcrumb from "./breadcrumb";
 
 export default component$(() => {
-  const state = useStore({
+  const revenue = useStore({
     subscription: 1,
     clients: 1,
   });
 
+  const growth = useStore({
+    startRevenue: 0,
+    rate: 1,
+    years: 1,
+  });
+
   const monthlyRevenue = useComputed$(
-    () => state.subscription * state.clients || 0,
+    () => revenue.subscription * revenue.clients || 0,
   );
+
+  const projectedRevenue = useComputed$(() => {
+    const yearlyGrowth = growth.rate / 100;
+    let revenue = growth.startRevenue;
+
+    for (let i = 0; i < growth.years; i++) {
+      revenue += revenue * yearlyGrowth;
+    }
+
+    return revenue.toFixed(2); // Return revenue as a fixed decimal string
+  });
 
   return (
     <>
-      <Breadcrumb.Root>
-        <Breadcrumb.List>
-          <Breadcrumb.Item>
-            <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Separator />
-          <Breadcrumb.Item>
-            <Breadcrumb.Page> Business Calculator </Breadcrumb.Page>
-          </Breadcrumb.Item>
-        </Breadcrumb.List>
-      </Breadcrumb.Root>
+      <Breadcrumb />
       <h1 class="mt-8">Business Calculator</h1>
       <p class="mb-6 mt-1">
         A bunch of calculators to better understand if your business idea makes
         mathematical sense
       </p>
       <Modal.Root>
-        <Modal.Trigger class={[buttonVariants({ look: 'primary' })]}>
+        <Modal.Trigger class={[buttonVariants({ look: "primary" })]}>
           Revenue Calculator
         </Modal.Trigger>
         <Modal.Panel>
-          <Modal.Close class="absolute top-4 right-4">
+          <Modal.Close class="absolute right-4 top-4">
             <LuX class="h-5 w-5" />
           </Modal.Close>
-          <Modal.Title class="text-4xl mb-5"> Revenue Calculator </Modal.Title>
+          <Modal.Title class="mb-5 text-4xl"> Revenue Calculator </Modal.Title>
           <Modal.Description class="mb-5">
-            Know how many clients and how much you should charge for your subscription service
+            Know how many clients and how much you should charge for your
+            subscription service
           </Modal.Description>
           <>
             <div>
-              <Label for="subscription-cost-input">
-                Monthly Subscription costs
-              </Label>
-              <Input
-                class="mb-8 w-1/3"
-                value={state.subscription}
-                id="subscription-cost-input"
-                min={0}
-                step={1}
-                pattern="^[0-9]+$"
-                type="number"
-                onInput$={(_, el) => (state.subscription = Number(el.value))}
+              <FormControl
+                formId="r-calc-monthly-subs-cost"
+                value={String(revenue.subscription)}
+                onInput$={$((_: any, el: HTMLInputElement) => (revenue.subscription = Number(el.value)))}
+                labelText="Monthly Subscription costs"
               />
-              <Label for="clients-input"> Number of Clients </Label>
-              <Input
-                id="clients-input"
-                class="w-1/3"
-                type="number"
-                value={state.clients}
-                min={0}
-                step={1}
-                pattern="^[0-9]+$"
-                onInput$={(_, el) => (state.clients = Number(el.value))}
+              <FormControl
+                formId="r-calc-client-number"
+                value={String(revenue.clients)}
+                onInput$={$((_: any, el: HTMLInputElement) => (revenue.clients = Number(el.value)))}
+                labelText="Number of clients"
               />
             </div>
             <div class="mt-10 flex justify-between text-center">
@@ -78,6 +76,50 @@ export default component$(() => {
               <div>
                 <h2>Yearly Revenue</h2>
                 <p>{Number(monthlyRevenue.value) * 12} $</p>
+              </div>
+            </div>
+          </>
+        </Modal.Panel>
+      </Modal.Root>
+      <Modal.Root class="mt-5">
+        <Modal.Trigger class={[buttonVariants({ look: "primary" })]}>
+          Growth Calculator
+        </Modal.Trigger>
+        <Modal.Panel>
+          <Modal.Close class="absolute right-4 top-4">
+            <LuX class="h-5 w-5" />
+          </Modal.Close>
+          <Modal.Title class="mb-5 text-4xl"> Growth Calculator </Modal.Title>
+          <Modal.Description class="mb-5">
+            Understand how much your business revenue can grow
+          </Modal.Description>
+          <>
+            <div class="flex">
+              <div>
+                <FormControl
+                  formId="g-calc-start-revenue"
+                  value={String(growth.startRevenue)}
+                  onInput$={$((_: any, el: HTMLInputElement) => (growth.startRevenue = Number(el.value)))}
+                  labelText="Start Revenue"
+                />
+                <FormControl
+                  formId="g-calc-growth-rate"
+                  value={String(growth.rate)}
+                  onInput$={$((_: any, el: HTMLInputElement) => (growth.rate = Number(el.value)))}
+                  labelText="Growth Rate"
+                />
+              </div>
+              <div class="ml-10">
+                <FormControl
+                  formId="g-calc-years"
+                  value={String(growth.years)}
+                  onInput$={$((_: any, el: HTMLInputElement) => (growth.years = Number(el.value)))}
+                  labelText="Years"
+                />
+                <div class="pt-9">
+                  <h2>Project Revenue</h2>
+                  <p> {projectedRevenue} </p>
+                </div>
               </div>
             </div>
           </>
